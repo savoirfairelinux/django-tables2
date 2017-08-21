@@ -466,7 +466,9 @@ class TableBase(object):
             if name in self.columns and self.columns[name].orderable:
                 valid.append(alias)
         self._order_by = OrderByTuple(valid)
-        self.data.order_by(self._order_by)
+	# a hack to be able to print results of a sorted limited query
+        if 'create_task' not in value: 
+            self.data.order_by(self._order_by)
 
     @property
     def order_by_field(self):
